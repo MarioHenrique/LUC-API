@@ -34,8 +34,10 @@ public class LifeUnderControlApplication {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Spring REST API LifeUnderControll")
-				.description("Spring Rest api")
-				.build();
+				 .title("Spring REST Sample with Swagger")
+	                .description("Spring REST Sample with Swagger")
+	                .version("0.1")
+	                .build();
 	}
 
 }
