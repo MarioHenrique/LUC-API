@@ -35,8 +35,8 @@ public class LifeUnderControlApplication {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
 				.title("Spring REST API LUC")
-                .description("Your Financial Life in our hand")
-                .contact("Mário Henrqiue")
+                .description("LifeUnderControll: Your Financial Life in our hand")
+                .contact("Mário Henrique")
                 .license("Apache License Version 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .version("0.1")
