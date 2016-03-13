@@ -1,4 +1,4 @@
-package br.com.lifeundercontrol.domain.controller;
+package br.com.lifeundercontroll.domain.controller;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lifeundercontrol.domain.DTO.Person;
-import br.com.lifeundercontrol.domain.service.PersonService;
+import br.com.lifeundercontroll.domain.DTO.Person;
+import br.com.lifeundercontroll.domain.service.PersonService;
 
 @RestController
 @RequestMapping(value="/person")

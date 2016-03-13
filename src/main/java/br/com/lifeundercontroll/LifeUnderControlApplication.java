@@ -1,4 +1,4 @@
-package br.com.lifeundercontrol;
+package br.com.lifeundercontroll;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

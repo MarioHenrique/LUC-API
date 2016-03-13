@@ -1,9 +1,19 @@
-package br.com.lifeundercontrol.domain.DTO;
+package br.com.lifeundercontroll.domain.entity;
 
 import java.math.BigDecimal;
 
-public class Person {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Person")
+public class PersonEntity {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private String lastName;
