@@ -29,7 +29,7 @@ public class LifeUnderControlApplication {
 	@Bean
 	public Docket newsApi() {
 		return new Docket(DocumentationType.SWAGGER_2).groupName("LifeUnderControll").apiInfo(apiInfo()).select()
-				.paths(regex("/api/luc.*")).build();
+				.paths(regex("/api.*")).build();
 	}
 
 	private ApiInfo apiInfo() {

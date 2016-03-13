@@ -13,7 +13,7 @@ import br.com.lifeundercontroll.domain.service.PersonService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/api/luc/person")
+@RequestMapping(value="/api/person")
 public class PersonController {
 
 	@Autowired
