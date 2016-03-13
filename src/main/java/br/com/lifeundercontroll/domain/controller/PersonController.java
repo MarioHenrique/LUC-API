@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lifeundercontroll.domain.DTO.Person;
 import br.com.lifeundercontroll.domain.service.PersonService;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping(value="/person")
+@RequestMapping(value="/api/luc/person")
 public class PersonController {
 
 	@Autowired
 	private PersonService personService;
 	
+	@ApiOperation(value="Lista todas as pessoas do sistema")
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public @ResponseBody List<Person> getPeople(){		
 		return personService.findAll();
