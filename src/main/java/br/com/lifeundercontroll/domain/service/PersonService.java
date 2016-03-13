@@ -3,6 +3,7 @@ package br.com.lifeundercontroll.domain.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,12 @@ public class PersonService {
 	
 	@Autowired
 	private ModelMapper modelMapper;
+
+	Logger logger = Logger.getLogger(PersonService.class);
 	
 	public List<Person> findAll(){
+		logger.debug("Listando todas as pessoas");
+		
 		List<Person> people = new ArrayList<>();
 		
 		Iterable<PersonEntity> peopleResult = personRepository.findAll();
