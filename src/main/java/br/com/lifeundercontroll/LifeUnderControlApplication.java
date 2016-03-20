@@ -52,7 +52,7 @@ public class LifeUnderControlApplication {
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Spring REST API LUC")
 				.description("LifeUnderControll: Your Financial Life in our hand").license("Apache License Version 2.0")
-				.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html").version("0.1").build();
+				.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html").version("0.0.2").build();
 	}
 
 }

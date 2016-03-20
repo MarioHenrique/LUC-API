@@ -60,10 +60,6 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 
 		request.setAttribute("REQUEST_LOG", logEntity);
 
-		request.setAttribute("CALL_ID", callId);
-
-		response.setHeader("CALL_ID", callId);
-
 		response.addHeader("CALL_ID", callId);
 
 		return true;
