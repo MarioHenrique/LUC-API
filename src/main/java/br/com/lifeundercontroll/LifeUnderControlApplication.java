@@ -18,7 +18,7 @@ import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class LifeUnderControlApplication {
 
 	public static void main(String[] args) {
@@ -29,46 +29,30 @@ public class LifeUnderControlApplication {
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
-	
-	  @Bean
-	  SecurityConfiguration security() {
-	    return new SecurityConfiguration(
-	        "client-id",
-	        "client-secret",
-	        "realm",
-	        "APILUC",
-	        "token",
-	        ApiKeyVehicle.HEADER, 
-	        "token", 
-	        ",");
-	  }
-	
+
+	@Bean
+	SecurityConfiguration security() {
+		return new SecurityConfiguration("client-id", "client-secret", "realm", "APILUC", "token", ApiKeyVehicle.HEADER,
+				"token", ",");
+	}
+
 	@Bean
 	public Docket newsApi() {
 		List<ApiKey> apiKey = new ArrayList<ApiKey>();
 		apiKey.add(apiKey());
-		
-		return new Docket(DocumentationType.SWAGGER_2)
-				.groupName("LifeUnderControll")
-				.securitySchemes(apiKey)
-				.apiInfo(apiInfo())
-				.select()
-				.paths(regex("/api.*"))
-				.build();
-	}	
+
+		return new Docket(DocumentationType.SWAGGER_2).groupName("LifeUnderControll").securitySchemes(apiKey)
+				.apiInfo(apiInfo()).select().paths(regex("/api.*")).build();
+	}
 
 	private ApiKey apiKey() {
-	    return new ApiKey("token", "token", "header");
+		return new ApiKey("token", "token", "header");
 	}
-	
+
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-				.title("Spring REST API LUC")
-                .description("LifeUnderControll: Your Financial Life in our hand")
-                .license("Apache License Version 2.0")
-                .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
-                .version("0.1")
-                .build();
+		return new ApiInfoBuilder().title("Spring REST API LUC")
+				.description("LifeUnderControll: Your Financial Life in our hand").license("Apache License Version 2.0")
+				.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html").version("0.1").build();
 	}
-	
+
 }

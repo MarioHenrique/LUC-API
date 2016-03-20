@@ -6,6 +6,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
@@ -22,7 +24,7 @@ public class TokenService {
 
 	@Autowired
 	private TokenRepository tokenRepository;
-
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -31,9 +33,12 @@ public class TokenService {
 	public String getByUserAndPassword(String username,String password) throws TokenNotFoundException{
 		Optional<TokenEntity> tokenOptional = Optional.ofNullable(tokenRepository.findByUserNameAndPasswordAndActiveTrue(username, password));
 		try{
+			
 			JSONObject response = new JSONObject();
 			response.put("token", tokenOptional.map(t->t.getToken()).get());
+			
 			return response.toString();
+			
 		}catch(NoSuchElementException e){
 			logger.error(e);
 			throw new TokenNotFoundException("Token not found for this username and password");
@@ -46,6 +51,7 @@ public class TokenService {
 		tokenEntity.setUserName(userName);
 		tokenEntity.setPassword(password);
 		tokenRepository.save(tokenEntity);
+		
 		return modelMapper.map(tokenEntity,Token.class);
 	}
 	
