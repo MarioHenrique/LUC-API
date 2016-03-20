@@ -6,8 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
@@ -17,10 +16,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import br.com.lifeundercontroll.domain.service.TokenService;
 
 @Component
+@Order(value=1)
 public class TokenInterceptor extends HandlerInterceptorAdapter{
 
-	Logger logger = Logger.getLogger(TokenInterceptor.class);
-	
 	private final AccessDeniedHandler accessDeniedHandler = new AccessDeniedHandlerImpl();
 	
 	private static final String TOKENINVALID = "Token invalido para a operação";
@@ -36,7 +34,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter{
 		String uri = request.getRequestURI();
 		String method = request.getMethod();
 		
-		if(uri.startsWith(URL_ALLOWED) && method.equals("GET"))
+		if(uri.startsWith(URL_ALLOWED) && (method.equals("GET") || method.equals("POST")))
 			return false;
 		
 		if(StringUtils.isEmpty(token))

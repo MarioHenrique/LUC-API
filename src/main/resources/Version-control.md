@@ -1,0 +1,2 @@
+  -Usuario Banco mysql para dev
+  	-INSERT INTO `token` (`id`,`active`,`password`,`token`,`user_name`) VALUES (1,'1','0{#2r,+:zA3/~>J','4i7julhhi97djftrrrd64tk71l','dev');

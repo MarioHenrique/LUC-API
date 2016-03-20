@@ -24,8 +24,7 @@ public class PersonService {
 	Logger logger = Logger.getLogger(PersonService.class);
 	
 	public List<Person> findAll(){
-		logger.debug("Listando todas as pessoas");
-		
+
 		List<Person> people = new ArrayList<>();
 		
 		Iterable<PersonEntity> peopleResult = personRepository.findAll();
