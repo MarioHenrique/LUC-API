@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.domain.DTO;
+package br.com.lifeundercontroll.DTO;
 
 public class Token {
 

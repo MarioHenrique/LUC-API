@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.domain.service;
+package br.com.lifeundercontroll.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.lifeundercontroll.domain.DTO.Person;
-import br.com.lifeundercontroll.domain.entity.PersonEntity;
-import br.com.lifeundercontroll.domain.repository.PersonRepository;
+import br.com.lifeundercontroll.DTO.Person;
+import br.com.lifeundercontroll.entity.PersonEntity;
+import br.com.lifeundercontroll.repository.PersonRepository;
 
 @Service
 public class PersonService {

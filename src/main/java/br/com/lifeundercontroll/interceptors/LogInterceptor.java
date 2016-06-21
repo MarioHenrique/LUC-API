@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.domain.interceptors;
+package br.com.lifeundercontroll.interceptors;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,12 +15,15 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import br.com.lifeundercontroll.domain.entity.LogEntity;
-import br.com.lifeundercontroll.domain.repository.LogRepositoy;
+import br.com.lifeundercontroll.entity.LogEntity;
+import br.com.lifeundercontroll.repository.LogRepositoy;
 
 @Component
 @Order(value = 2)
@@ -30,7 +33,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 
 	@Autowired
 	private LogRepositoy logRepository;
-
+	
 	private static final String ERROR_ATTRIB_SPRING = "org.springframework.boot.autoconfigure.web.DefaultErrorAttributes.ERROR";
 
 	@Override
@@ -38,7 +41,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 
 		LogEntity logEntity = new LogEntity();
-
+		
 		String method = request.getMethod();
 		String callId = UUID.randomUUID().toString();
 

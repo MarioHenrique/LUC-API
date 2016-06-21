@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.domain.exceptions;
+package br.com.lifeundercontroll.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

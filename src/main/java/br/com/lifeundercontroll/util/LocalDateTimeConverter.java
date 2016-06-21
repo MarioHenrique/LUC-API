@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.config;
+package br.com.lifeundercontroll.util;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

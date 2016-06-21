@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.domain.entity;
+package br.com.lifeundercontroll.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

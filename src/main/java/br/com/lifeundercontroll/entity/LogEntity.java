@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.domain.entity;
+package br.com.lifeundercontroll.entity;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
-import br.com.lifeundercontroll.config.LocalDateTimeConverter;
+import br.com.lifeundercontroll.util.LocalDateTimeConverter;
 
 @Entity
 @Table(name="Log")
