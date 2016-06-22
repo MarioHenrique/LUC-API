@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.DTO.request;
+package br.com.lifeundercontroll.Dto.request;
 
 import java.math.BigDecimal;
 import javax.validation.constraints.DecimalMin;

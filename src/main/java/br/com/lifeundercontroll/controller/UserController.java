@@ -1,11 +1,14 @@
 package br.com.lifeundercontroll.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lifeundercontroll.DTO.request.UserRequest;
+import br.com.lifeundercontroll.Dto.Response.BillResponse;
 import br.com.lifeundercontroll.Dto.Response.UserResponse;
+import br.com.lifeundercontroll.Dto.request.UserRequest;
 import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.service.UserService;
@@ -31,7 +35,7 @@ public class UserController extends BaseController{
 	@RequestMapping(value="/create",method=RequestMethod.POST)
 	@PreAuthorize("hasAuthority('createUser')")
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public void createPerson(@RequestBody @Valid UserRequest userRequest,BindingResult result) throws ResourceAlreadyExist{
+	public void createUser(@RequestBody @Valid UserRequest userRequest,BindingResult result) throws ResourceAlreadyExist{
 		verifyInvalidParam(result);
 		userService.createUser(userRequest);
 	}
@@ -46,4 +50,12 @@ public class UserController extends BaseController{
 		return userService.login(email,password);
 	}
 	
+	@ApiOperation(value="Lista todas as contas de um usuario")
+	@RequestMapping(value="/{userToken}/bills",method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('getUserBills')")
+	@ResponseStatus(value=HttpStatus.OK)
+	public List<BillResponse> getUserBills(
+			@PathVariable String userToken) throws ResourceNotFound{
+		return userService.getBills(userToken);
+	}
 }

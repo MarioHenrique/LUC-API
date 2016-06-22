@@ -1,12 +1,16 @@
 package br.com.lifeundercontroll.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +27,9 @@ public class UserEntity {
 	
 	private String password;
 	private String token;
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<BillEntity> bills;
 	
 	public String getToken() {
 		return token;
@@ -72,6 +79,14 @@ public class UserEntity {
 	
 	public void setSalary(BigDecimal salary) {
 		this.salary = salary;
+	}
+
+	public List<BillEntity> getBills() {
+		return bills;
+	}
+
+	public void setBills(List<BillEntity> bills) {
+		this.bills = bills;
 	}
 	
 }

@@ -29,16 +29,7 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
    
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.jdbc(dataSource())
-               .withClient("sampleClientId")
-               .authorizedGrantTypes("implicit")
-               .scopes("global")
-               .autoApprove(true)
-               .and()
-               .withClient("clientIdPassword")
-               .secret("secret")
-               .authorizedGrantTypes("password","authorization_code", "refresh_token")
-               .scopes("global");
+        clients.jdbc(dataSource());
     }
  
     @Override

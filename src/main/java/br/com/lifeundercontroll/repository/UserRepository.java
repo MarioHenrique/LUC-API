@@ -10,6 +10,8 @@ public interface UserRepository extends CrudRepository<UserEntity, Long> {
 
 	public UserEntity findByEmailAndPassword(String email,String password);
 	
+	public UserEntity findByToken(String token);
+	
 	public UserEntity findByEmail(String email);
 	
 }
