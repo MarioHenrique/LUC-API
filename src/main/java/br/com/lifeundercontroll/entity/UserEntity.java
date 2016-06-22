@@ -1,55 +1,43 @@
 package br.com.lifeundercontroll.entity;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table( name="users" )
-public class UserEntity implements Serializable{
+@Table(name="User")
+public class UserEntity {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	private String name;
 	
-	@Column( nullable=false)
+	@Column(unique=true)
+	private String email;
+	
 	private String password;
+	private String token;
 	
-	@Column( unique=true, nullable=false)
-	private String username;
-	
-	@ManyToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER )
-	@JoinTable( 
-		name = "users_roles", 
-		joinColumns = {@JoinColumn(name="user_id")}, 
-		inverseJoinColumns = {@JoinColumn(name="role_id")}  
-	)
-	
-	private Set<RoleEntity> roles = new HashSet<RoleEntity>();
-	
-	private UserEntity() {}
-
-	public Long getId() {
-		return id;
+	public String getToken() {
+		return token;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {
@@ -60,26 +48,30 @@ public class UserEntity implements Serializable{
 		this.password = password;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", password=" + password + "]";
+	private BigDecimal salary;
+	
+	public Long getId() {
+		return id;
 	}
-
-	public Set<RoleEntity> getRoles() {
-		return roles;
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public void setRoles(Set<RoleEntity> roles) {
-		this.roles = roles;
+	
+	public String getName() {
+		return name;
 	}
-
-	public String getUsername() {
-		return username;
+	
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	
+	public BigDecimal getSalary() {
+		return salary;
 	}
-
+	
+	public void setSalary(BigDecimal salary) {
+		this.salary = salary;
+	}
 	
 }

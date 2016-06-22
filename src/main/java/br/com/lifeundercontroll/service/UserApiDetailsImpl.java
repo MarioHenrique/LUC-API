@@ -9,16 +9,15 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import br.com.lifeundercontroll.entity.RoleEntity;
-import br.com.lifeundercontroll.entity.UserEntity;
+import br.com.lifeundercontroll.entity.UserApiEntity;
 
-public class UserDetailsImpl implements UserDetails{
+public class UserApiDetailsImpl implements UserDetails {
 
-	
-private static final long serialVersionUID = 3185970362329652822L;
-	
-	private UserEntity user;
-	
-	public UserDetailsImpl(UserEntity user){
+	private static final long serialVersionUID = 3185970362329652822L;
+
+	private UserApiEntity user;
+
+	public UserApiDetailsImpl(UserApiEntity user) {
 		this.user = user;
 	}
 
@@ -26,11 +25,11 @@ private static final long serialVersionUID = 3185970362329652822L;
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 		Set<RoleEntity> roles = user.getRoles();
-		for( RoleEntity role : roles ) {
-			authorities.add( new SimpleGrantedAuthority(role.getRole()) ); 
+		for (RoleEntity role : roles) {
+			authorities.add(new SimpleGrantedAuthority(role.getRole()));
 		}
-		
-		return authorities;		
+
+		return authorities;
 	}
 
 	@Override
@@ -62,5 +61,5 @@ private static final long serialVersionUID = 3185970362329652822L;
 	public boolean isEnabled() {
 		return true;
 	}
-	
+
 }

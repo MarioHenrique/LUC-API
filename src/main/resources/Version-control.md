@@ -1,4 +1,6 @@
-  -Usuario Banco mysql para dev
-  	-INSERT INTO `token` (`id`,`active`,`password`,`token`,`user_name`) VALUES (1,'1','0{#2r,+:zA3/~>J','4i7julhhi97djftrrrd64tk71l','dev');
+-Informações inicias
+  -Adicionar usuario
+   -insert into oauth_client_details(client_id,client_secret,scope,authorized_grant_types)values('dev','779a923d69b2e072747b11975ba86949de167037','global','password');
+   -insert into users_api(username,password)values('dev','779a923d69b2e072747b11975ba86949de167037');
   -Obter token
-   curl -X POST -vu dev:123 http://localhost:8080/oauth/token -H "Accept: application/json" -d "password=123&username=dev&grant_type=password&scope=global"
+   -curl -X POST -vu dev:123mudar http://localhost:8080/oauth/token -H "Accept: application/json" -d "password=123mudar&username=dev&grant_type=password&scope=global"
