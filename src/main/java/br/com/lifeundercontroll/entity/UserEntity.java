@@ -2,6 +2,7 @@ package br.com.lifeundercontroll.entity;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,10 @@ public class UserEntity {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	
+	@Column(unique=true)
 	private String email;
+	
 	private String password;
 	private String token;
 	

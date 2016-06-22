@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lifeundercontroll.DTO.request.UserRequest;
 import br.com.lifeundercontroll.Dto.Response.UserResponse;
+import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +31,7 @@ public class UserController extends BaseController{
 	@RequestMapping(value="/create",method=RequestMethod.POST)
 	@PreAuthorize("hasAuthority('createUser')")
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public void createPerson(@RequestBody @Valid UserRequest userRequest,BindingResult result){
+	public void createPerson(@RequestBody @Valid UserRequest userRequest,BindingResult result) throws ResourceAlreadyExist{
 		verifyInvalidParam(result);
 		userService.createUser(userRequest);
 	}
