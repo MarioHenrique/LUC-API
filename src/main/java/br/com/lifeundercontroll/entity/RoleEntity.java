@@ -23,7 +23,7 @@ public class RoleEntity implements Serializable{
 	private String role;
 	
 	@ManyToMany( mappedBy = "roles")
-	private Set<UserEntity> users = new HashSet<UserEntity>();
+	private Set<UserApiEntity> users = new HashSet<UserApiEntity>();
 	
 	private RoleEntity(){}
 
@@ -48,11 +48,11 @@ public class RoleEntity implements Serializable{
 		return "Role [id=" + id + ", role=" + role + "]";
 	}
 
-	public Set<UserEntity> getUsers() {
+	public Set<UserApiEntity> getUsers() {
 		return users;
 	}
 
-	public void setUsers(Set<UserEntity> users) {
+	public void setUsers(Set<UserApiEntity> users) {
 		this.users = users;
 	}
 	

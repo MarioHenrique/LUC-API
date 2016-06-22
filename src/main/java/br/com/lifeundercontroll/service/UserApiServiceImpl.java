@@ -6,27 +6,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.lifeundercontroll.entity.UserEntity;
-import br.com.lifeundercontroll.repository.UserRepository;
+import br.com.lifeundercontroll.entity.UserApiEntity;
+import br.com.lifeundercontroll.repository.UserApiRepository;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserApiServiceImpl implements UserApiService, UserDetailsService {
 
 	@Autowired
-	UserRepository userRepository;
+	UserApiRepository userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserEntity user = userRepository.findByUsername(username);
+		UserApiEntity user = userRepository.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException(username);
 		}
 
-		return new UserDetailsImpl(user);
+		return new UserApiDetailsImpl(user);
 	}
 
 	@Override
-	public UserEntity findByUsername(String username) {
+	public UserApiEntity findByUsername(String username) {
 		return userRepository.findByUsername(username);
 	}
 

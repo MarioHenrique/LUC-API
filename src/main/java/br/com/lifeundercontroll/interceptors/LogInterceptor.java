@@ -15,15 +15,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import br.com.lifeundercontroll.entity.LogEntity;
-import br.com.lifeundercontroll.repository.LogRepositoy;
+import br.com.lifeundercontroll.repository.LogRepository;
 
 @Component
 @Order(value = 2)
@@ -32,7 +29,7 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
 	Logger logger = Logger.getLogger(LogInterceptor.class);
 
 	@Autowired
-	private LogRepositoy logRepository;
+	private LogRepository logRepository;
 	
 	private static final String ERROR_ATTRIB_SPRING = "org.springframework.boot.autoconfigure.web.DefaultErrorAttributes.ERROR";
 
