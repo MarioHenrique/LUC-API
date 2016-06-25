@@ -21,8 +21,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter {
 	
     @Autowired
-    @Qualifier("AuthManager")
-    private AuthenticationManager authenticationManager;
+    private ServerSecurityConfig server;
  
     @Autowired
     private Environment env;
@@ -35,7 +34,7 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) 
       throws Exception {
-        endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager);
+        endpoints.tokenStore(tokenStore()).authenticationManager(server.authenticationManagerBean());
     }
  
     @Bean
