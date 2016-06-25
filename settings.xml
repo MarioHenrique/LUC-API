@@ -1,6 +1,3 @@
 <settings>
-	<activeProfiles>
-	   <activeProfile>openshift</activeProfile>
-	</activeProfiles>
 	<localRepository>${OPENSHIFT_DATA_DIR}/m2/repository</localRepository>
 </settings>
