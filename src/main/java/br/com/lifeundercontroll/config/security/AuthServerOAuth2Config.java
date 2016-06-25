@@ -21,7 +21,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter {
 	
     @Autowired
-    @Qualifier("authenticationManagerBean")
+    @Qualifier("AuthManager")
     private AuthenticationManager authenticationManager;
  
     @Autowired

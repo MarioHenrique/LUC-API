@@ -26,14 +26,14 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
     @Override
-    @Bean
+    @Bean(name="AuthManager")
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.csrf().disable();
+    	 http.csrf().disable();
     	 http.authorizeRequests()
          .antMatchers("/docs/**").permitAll();
     }
