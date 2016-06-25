@@ -14,10 +14,10 @@ if [ ! -d $OPENSHIFT_DATA_DIR/logs ]
 				mkdir logs
 fi
 
-if [ ! -d $OPENSHIFT_DATA_DIR/jdk1.8.0_20 ]
+if [ ! -d $OPENSHIFT_DATA_DIR/jdk1.8.0_91 ]
         then
                 cd $OPENSHIFT_DATA_DIR
-                wget http://www.java.net/download/jdk8u20/archive/b17/binaries/jdk-8u20-ea-bin-b17-linux-x64-04_jun_2014.tar.gz
+                wget http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz
                 tar xvf *.tar.gz
                 rm -f *.tar.gz
 fi
