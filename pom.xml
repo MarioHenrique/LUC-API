@@ -6,7 +6,7 @@
 	<groupId>br.com.lifeundercontroll</groupId>
 	<artifactId>lifeundercontroll</artifactId>
 	<version>0.1.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>LifeUnderControll</name>
 	<description>Projeto com objetivo de controlar a vida financeira</description>
