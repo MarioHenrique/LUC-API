@@ -3,14 +3,13 @@ package br.com.lifeundercontroll.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import br.com.lifeundercontroll.Dto.Response.BillResponse;
 import br.com.lifeundercontroll.Dto.Response.UserResponse;
 import br.com.lifeundercontroll.Dto.request.UserRequest;
+import br.com.lifeundercontroll.Dto.request.UserUpdateRequest;
 import br.com.lifeundercontroll.builders.BillResponseBuilder;
 import br.com.lifeundercontroll.builders.UserEntityBuilder;
 import br.com.lifeundercontroll.builders.UserResponseBuilder;
@@ -45,6 +44,14 @@ public class UserService {
 		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(userToken));
 		UserEntity userEntity = user.orElseThrow(()->new ResourceNotFound("Usuario não encontrado"));
 		return userEntity.getBills().stream().map(s-> BillResponseBuilder.build(s)).collect(Collectors.toList());
+	}
+
+	public void updateUser(UserUpdateRequest userUpdateRequest) throws ResourceNotFound {
+		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(userUpdateRequest.getToken()));
+		UserEntity userEntity = user.orElseThrow(()-> new ResourceNotFound("Usuario não encontrado"));
+		userEntity.setName(userUpdateRequest.getNome());
+		userEntity.setSalary(userUpdateRequest.getSalario());
+		userRepository.save(userEntity);
 	}
 	
 }
