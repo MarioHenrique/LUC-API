@@ -12,6 +12,7 @@ import br.com.lifeundercontroll.builders.BillResponseBuilder;
 import br.com.lifeundercontroll.entity.BillEntity;
 import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
+import br.com.lifeundercontroll.repository.BillRepository;
 import br.com.lifeundercontroll.repository.UserRepository;
 
 @Service

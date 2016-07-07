@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -22,7 +24,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @EnableSwagger2
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class LifeUnderControlApplication {
+public class LifeUnderControlApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(LifeUnderControlApplication.class);
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(LifeUnderControlApplication.class, args);
@@ -49,12 +56,11 @@ public class LifeUnderControlApplication {
 
 	@Value("${version}")
 	private String version;
-	
+
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Spring REST API LUC")
 				.description("LifeUnderControll: Your Financial Life in our hand").license("Apache License Version 2.0")
 				.licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html").version(version).build();
 	}
-
 
 }

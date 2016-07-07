@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.service;
+package br.com.lifeundercontroll.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
