@@ -120,13 +120,38 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
+				<includes>
+					<include>log4j.properties</include>
+				</includes>
 				<filtering>true</filtering>
 			</resource>
 		</resources>
 		<plugins>
 			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>LATEST</version>
+				<configuration>
+					<targetClasses>
+						<param>br.com.lifeundercontroll.controller.*</param>
+						<param>br.com.lifeundercontroll.service.*</param>
+					</targetClasses>
+					<targetTests>
+						<param>br.com.lifeundercontroll.*</param>
+					</targetTests>
+				</configuration>
+			</plugin>
+
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework</groupId>
+						<artifactId>springloaded</artifactId>
+						<version>1.2.0.RELEASE</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 		</plugins>
 	</build>
