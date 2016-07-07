@@ -6,4 +6,4 @@
   insert into users_api(username,password)values('dev','779a923d69b2e072747b11975ba86949de167037');
   
   <h3>Obter token</h3>
-  curl -X POST -vu dev:123mudar http://localhost:8080/oauth/token -H "Accept: application/json" -d "password=123mudar&username=dev&grant_type=password&scope=global"
+  curl -X POST -vu dev:123mudar http://localhost:8081/oauth/token -H "Accept: application/json" -d "password=123mudar&username=dev&grant_type=password&scope=global"
