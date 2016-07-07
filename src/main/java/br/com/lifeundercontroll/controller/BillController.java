@@ -1,5 +1,7 @@
 package br.com.lifeundercontroll.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import br.com.lifeundercontroll.Dto.Response.BillResponse;
 import br.com.lifeundercontroll.Dto.request.BillRequest;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.service.BillService;
+import br.com.lifeundercontroll.service.UserService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
@@ -25,6 +28,9 @@ public class BillController extends BaseController{
 
 	@Autowired
 	private BillService billService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@ApiOperation(value="Cria uma conta e associa a um usuario",notes="A partir das informações da conta e do token do usuario é feito a associação da conta")
 	@RequestMapping(value="/create",method=RequestMethod.POST)
@@ -43,6 +49,15 @@ public class BillController extends BaseController{
 	@PreAuthorize("hasAuthority('getBill')")
 	public BillResponse getBill(@PathVariable Long billId) throws ResourceNotFound{
 		return billService.getBillById(billId);
+	}
+	
+	@ApiOperation(value="Lista todas as contas de um usuario")
+	@RequestMapping(value="/{userToken}/bills",method=RequestMethod.GET)
+	@PreAuthorize("hasAuthority('getUserBills')")
+	@ResponseStatus(value=HttpStatus.OK)
+	public List<BillResponse> getUserBills(
+			@PathVariable String userToken) throws ResourceNotFound{
+		return userService.getBills(userToken);
 	}
 	
 }
