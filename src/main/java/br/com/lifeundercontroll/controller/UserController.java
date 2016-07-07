@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.lifeundercontroll.Dto.Response.UserResponse;
 import br.com.lifeundercontroll.Dto.request.UserRequest;
 import br.com.lifeundercontroll.Dto.request.UserUpdateRequest;
+import br.com.lifeundercontroll.config.security.Permissions;
 import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.service.UserService;
@@ -30,7 +31,7 @@ public class UserController extends BaseController{
 	
 	@ApiOperation(value="Criação de um usuario",notes="Criação de um usuario novo no sistema")
 	@RequestMapping(value="/create",method=RequestMethod.POST)
-	@PreAuthorize("hasAuthority('createUser')")
+	@PreAuthorize(Permissions.createUser)
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public void createUser(@RequestBody @Valid UserRequest userRequest,BindingResult result) throws ResourceAlreadyExist{
 		verifyInvalidParam(result);
@@ -39,7 +40,7 @@ public class UserController extends BaseController{
 	
 	@ApiOperation(value="Login de usuario",notes="A partir de um email e password é vefiricado se o usuario existe")
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	@PreAuthorize("hasAuthority('login')")
+	@PreAuthorize(Permissions.login)
 	@ResponseStatus(value=HttpStatus.OK)
 	public UserResponse login(
 			@RequestParam String email,
@@ -49,7 +50,7 @@ public class UserController extends BaseController{
 	
 	@ApiOperation(value="Alteração de usuario",notes="A partir do token do usuario é possivel alterar seu nome e seu salario")
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
-	@PreAuthorize("hasAuthority('updateUser')")
+	@PreAuthorize(Permissions.updateUser)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void update(
 			@RequestBody @Valid UserUpdateRequest userUpdateRequest,BindingResult result) throws ResourceNotFound{
