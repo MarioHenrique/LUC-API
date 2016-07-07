@@ -53,5 +53,11 @@ public class UserService {
 		userEntity.setSalary(userUpdateRequest.getSalario());
 		userRepository.save(userEntity);
 	}
+
+	public UserResponse getUserByToken(String token) throws ResourceNotFound {
+		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(token));
+		UserEntity userEntity = user.orElseThrow(()-> new ResourceNotFound("Usuario não encontrado"));
+		return UserResponseBuilder.build(userEntity);
+	}
 	
 }

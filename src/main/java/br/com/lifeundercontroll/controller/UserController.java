@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -56,6 +57,14 @@ public class UserController extends BaseController{
 			@RequestBody @Valid UserUpdateRequest userUpdateRequest,BindingResult result) throws ResourceNotFound{
 		   verifyInvalidParam(result);
 		   userService.updateUser(userUpdateRequest);
+	}
+	
+	@ApiOperation(value="Recupera informações do usuarios",notes="A partir do token é recuperado informações do usuario")
+	@RequestMapping(value="/{token}/info",method=RequestMethod.GET)
+	@PreAuthorize(Permissions.info)
+	@ResponseStatus(value=HttpStatus.OK)
+	public UserResponse info(@PathVariable String token) throws ResourceNotFound{
+		return userService.getUserByToken(token);
 	}
 	
 }
