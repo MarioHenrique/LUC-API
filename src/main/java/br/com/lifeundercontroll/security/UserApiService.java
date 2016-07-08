@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.service;
+package br.com.lifeundercontroll.security;
 
 import br.com.lifeundercontroll.entity.UserApiEntity;
 

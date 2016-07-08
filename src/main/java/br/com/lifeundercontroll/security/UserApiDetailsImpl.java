@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.service;
+package br.com.lifeundercontroll.security;
 
 import java.util.Collection;
 import java.util.HashSet;
