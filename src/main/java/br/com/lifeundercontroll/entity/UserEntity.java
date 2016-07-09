@@ -28,7 +28,7 @@ public class UserEntity {
 	private String password;
 	private String token;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<BillEntity> bills;
 	
 	public String getToken() {

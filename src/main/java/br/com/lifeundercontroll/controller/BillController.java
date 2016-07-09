@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lifeundercontroll.Dto.Response.BillResponse;
 import br.com.lifeundercontroll.Dto.request.BillRequest;
-import br.com.lifeundercontroll.config.security.Permissions;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
+import br.com.lifeundercontroll.security.Permissions;
 import br.com.lifeundercontroll.service.BillService;
 import br.com.lifeundercontroll.service.UserService;
 import io.swagger.annotations.ApiOperation;

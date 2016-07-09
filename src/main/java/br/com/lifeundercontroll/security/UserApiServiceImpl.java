@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.service;
+package br.com.lifeundercontroll.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
