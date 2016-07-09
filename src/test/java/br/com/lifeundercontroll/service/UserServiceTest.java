@@ -46,18 +46,6 @@ public class UserServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
-
-	
-	@Test
-	public void getBillsToValidaUser() throws ResourceNotFound{
-		
-		String userToken = "123-456";
-		
-		
-		
-		userService.getBills(userToken);
-		
-	}
 	
 	@Test
 	public void loginInvalid() {
