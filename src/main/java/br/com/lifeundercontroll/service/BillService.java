@@ -24,7 +24,7 @@ public class BillService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public void createBill(BillRequest request) throws ResourceNotFound{
+	public void createBill(BillRequest request) throws ResourceNotFound {
 		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(request.getUserToken()));
 		UserEntity userEntity = user.orElseThrow(()->new ResourceNotFound("Token de usuario invalido"));
 		userEntity.getBills().add(BillEntityBuilder.build(request));
@@ -35,6 +35,10 @@ public class BillService {
 		Optional<BillEntity> bill = Optional.ofNullable(billRepository.findOne(billId));
 		BillEntity billEntity = bill.orElseThrow(()->new ResourceNotFound("Conta não encontrada"));
 		return BillResponseBuilder.build(billEntity);
+	}
+	
+	public void updateBill(BillRequest request) throws ResourceNotFound {
+		
 	}
 	
 }

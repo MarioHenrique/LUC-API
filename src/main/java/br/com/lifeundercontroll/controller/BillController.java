@@ -33,31 +33,40 @@ public class BillController extends BaseController{
 	@Autowired
 	private UserService userService;
 	
-	@ApiOperation(value="Cria uma conta e associa a um usuario",notes="A partir das informações da conta e do token do usuario é feito a associação da conta")
+	@ApiOperation(value="Cria uma conta e associada a um usuario",notes="A partir das informações da conta e do token do usuario é feito a associação da conta")
 	@RequestMapping(value="/create",method=RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED)
-	@PreAuthorize(Permissions.createBill)
+	@PreAuthorize(Permissions.POST_BILL)
 	public void createBill(
-			@RequestBody @Valid BillRequest billRquest,BindingResult result) throws ResourceNotFound{
+			@RequestBody @Valid BillRequest billRequest,BindingResult result) throws ResourceNotFound{
 		 verifyInvalidParam(result);	 
-		 billService.createBill(billRquest);
+		 billService.createBill(billRequest);
 	}
 	
 	@ApiOperation(value="Recupera dados de uma determinada conta")
 	@RequestMapping(value="/{billId}",method=RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
-	@PreAuthorize(Permissions.getBill)
+	@PreAuthorize(Permissions.GET_BILL)
 	public BillResponse getBill(@PathVariable Long billId) throws ResourceNotFound{
 		return billService.getBillById(billId);
 	}
 	
 	@ApiOperation(value="Lista todas as contas de um usuario")
 	@RequestMapping(value="/{userToken}/bills",method=RequestMethod.GET)
-	@PreAuthorize("hasAuthority('getUserBills')")
+	@PreAuthorize(Permissions.GET_LIST_BILL)
 	@ResponseStatus(value=HttpStatus.OK)
 	public List<BillResponse> getUserBills(
 			@PathVariable String userToken) throws ResourceNotFound{
 		return userService.getBills(userToken);
+	}
+	
+	@ApiOperation(value="Altera os dados de uma conta")
+	@RequestMapping(value="/update",method=RequestMethod.PUT)
+	@ResponseStatus(value=HttpStatus.OK)
+	@PreAuthorize(Permissions.PUT_BILL)
+	public void updateBill(@RequestBody @Valid BillRequest billRequest,BindingResult result) throws ResourceNotFound{
+		 verifyInvalidParam(result);	 
+		 billService.updateBill(billRequest);
 	}
 	
 }
