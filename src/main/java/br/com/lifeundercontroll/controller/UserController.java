@@ -32,7 +32,7 @@ public class UserController extends BaseController{
 	
 	@ApiOperation(value="Criação de um usuario",notes="Criação de um usuario novo no sistema")
 	@RequestMapping(value="/create",method=RequestMethod.POST)
-	@PreAuthorize(Permissions.createUser)
+	@PreAuthorize(Permissions.CREATE_USER)
 	@ResponseStatus(value=HttpStatus.CREATED)
 	public void createUser(@RequestBody @Valid UserRequest userRequest,BindingResult result) throws ResourceAlreadyExist{
 		verifyInvalidParam(result);
@@ -41,7 +41,7 @@ public class UserController extends BaseController{
 	
 	@ApiOperation(value="Login de usuario",notes="A partir de um email e password é vefiricado se o usuario existe")
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	@PreAuthorize(Permissions.login)
+	@PreAuthorize(Permissions.LOGIN)
 	@ResponseStatus(value=HttpStatus.OK)
 	public UserResponse login(
 			@RequestParam String email,
@@ -51,7 +51,7 @@ public class UserController extends BaseController{
 	
 	@ApiOperation(value="Alteração de usuario",notes="A partir do token do usuario é possivel alterar seu nome e seu salario")
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
-	@PreAuthorize(Permissions.updateUser)
+	@PreAuthorize(Permissions.UPDATE_USER)
 	@ResponseStatus(value=HttpStatus.NO_CONTENT)
 	public void update(
 			@RequestBody @Valid UserUpdateRequest userUpdateRequest,BindingResult result) throws ResourceNotFound{
@@ -61,7 +61,7 @@ public class UserController extends BaseController{
 	
 	@ApiOperation(value="Recupera informações do usuarios",notes="A partir do token é recuperado informações do usuario")
 	@RequestMapping(value="/{token}/info",method=RequestMethod.GET)
-	@PreAuthorize(Permissions.info)
+	@PreAuthorize(Permissions.USER_INFO)
 	@ResponseStatus(value=HttpStatus.OK)
 	public UserResponse info(@PathVariable String token) throws ResourceNotFound{
 		return userService.getUserByToken(token);
