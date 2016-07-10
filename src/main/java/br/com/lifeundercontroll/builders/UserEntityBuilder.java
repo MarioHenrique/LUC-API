@@ -2,7 +2,7 @@ package br.com.lifeundercontroll.builders;
 
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
-import br.com.lifeundercontroll.Dto.request.UserRequest;
+import br.com.lifeundercontroll.dto.request.UserRequest;
 import br.com.lifeundercontroll.entity.UserEntity;
 
 public class UserEntityBuilder {

@@ -1,6 +1,6 @@
 package br.com.lifeundercontroll.builders;
 
-import br.com.lifeundercontroll.Dto.request.BillRequest;
+import br.com.lifeundercontroll.dto.request.BillRequest;
 import br.com.lifeundercontroll.entity.BillEntity;
 
 public class BillEntityBuilder {

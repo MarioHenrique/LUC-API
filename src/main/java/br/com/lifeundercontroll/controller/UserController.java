@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lifeundercontroll.Dto.Response.UserResponse;
-import br.com.lifeundercontroll.Dto.request.UserRequest;
-import br.com.lifeundercontroll.Dto.request.UserUpdateRequest;
+import br.com.lifeundercontroll.dto.Response.UserResponse;
+import br.com.lifeundercontroll.dto.request.UserRequest;
+import br.com.lifeundercontroll.dto.request.UserUpdateRequest;
 import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.security.Permissions;
