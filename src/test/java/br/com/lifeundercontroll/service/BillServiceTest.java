@@ -20,8 +20,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.lifeundercontroll.dto.Response.BillResponse;
 import br.com.lifeundercontroll.dto.request.BillRequest;
+import br.com.lifeundercontroll.dto.response.BillResponse;
 import br.com.lifeundercontroll.entity.BillEntity;
 import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;

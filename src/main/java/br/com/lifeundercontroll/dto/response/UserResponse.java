@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.dto.Response;
+package br.com.lifeundercontroll.dto.response;
 
 import java.math.BigDecimal;
 

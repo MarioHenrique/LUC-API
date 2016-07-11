@@ -22,10 +22,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
-import br.com.lifeundercontroll.dto.Response.BillResponse;
-import br.com.lifeundercontroll.dto.Response.UserResponse;
 import br.com.lifeundercontroll.dto.request.UserRequest;
 import br.com.lifeundercontroll.dto.request.UserUpdateRequest;
+import br.com.lifeundercontroll.dto.response.BillResponse;
+import br.com.lifeundercontroll.dto.response.UserResponse;
 import br.com.lifeundercontroll.entity.BillEntity;
 import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;

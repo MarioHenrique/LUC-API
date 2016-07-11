@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll.Dto.request;
+package br.com.lifeundercontroll.dto.request;
 
 import java.math.BigDecimal;
 import java.util.Date;

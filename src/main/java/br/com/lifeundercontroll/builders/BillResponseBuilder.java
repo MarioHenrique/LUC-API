@@ -2,7 +2,7 @@ package br.com.lifeundercontroll.builders;
 
 import java.text.SimpleDateFormat;
 
-import br.com.lifeundercontroll.dto.Response.BillResponse;
+import br.com.lifeundercontroll.dto.response.BillResponse;
 import br.com.lifeundercontroll.entity.BillEntity;
 
 public class BillResponseBuilder {
