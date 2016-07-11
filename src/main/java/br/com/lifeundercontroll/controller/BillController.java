@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lifeundercontroll.Dto.Response.BillResponse;
+import br.com.lifeundercontroll.Dto.Response.MessageResponse;
 import br.com.lifeundercontroll.Dto.request.BillRequest;
+import br.com.lifeundercontroll.Dto.request.BillUpdateRequest;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.security.Permissions;
 import br.com.lifeundercontroll.service.BillService;
@@ -64,9 +66,9 @@ public class BillController extends BaseController{
 	@RequestMapping(value="/update",method=RequestMethod.PUT)
 	@ResponseStatus(value=HttpStatus.OK)
 	@PreAuthorize(Permissions.PUT_BILL)
-	public void updateBill(@RequestBody @Valid BillRequest billRequest,BindingResult result) throws ResourceNotFound{
+	public MessageResponse updateBill(@RequestBody @Valid BillUpdateRequest billRequest, BindingResult result) throws ResourceNotFound{
 		 verifyInvalidParam(result);	 
-		 billService.updateBill(billRequest);
+		 return billService.updateBill(billRequest);
 	}
 	
 }

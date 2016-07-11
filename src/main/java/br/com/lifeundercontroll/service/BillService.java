@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.lifeundercontroll.Dto.Response.BillResponse;
+import br.com.lifeundercontroll.Dto.Response.MessageResponse;
 import br.com.lifeundercontroll.Dto.request.BillRequest;
+import br.com.lifeundercontroll.Dto.request.BillUpdateRequest;
 import br.com.lifeundercontroll.builders.BillEntityBuilder;
 import br.com.lifeundercontroll.builders.BillResponseBuilder;
 import br.com.lifeundercontroll.entity.BillEntity;
@@ -14,6 +16,7 @@ import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.repository.BillRepository;
 import br.com.lifeundercontroll.repository.UserRepository;
+import br.com.lifeundercontroll.security.Permissions;
 
 @Service
 public class BillService {
@@ -23,7 +26,7 @@ public class BillService {
 	
 	@Autowired
 	private UserRepository userRepository;
-	
+		
 	public void createBill(BillRequest request) throws ResourceNotFound {
 		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(request.getUserToken()));
 		UserEntity userEntity = user.orElseThrow(()->new ResourceNotFound("Token de usuario invalido"));
@@ -37,8 +40,11 @@ public class BillService {
 		return BillResponseBuilder.build(billEntity);
 	}
 	
-	public void updateBill(BillRequest request) throws ResourceNotFound {
-		
+	public MessageResponse updateBill(BillUpdateRequest request) throws ResourceNotFound {
+		Optional<BillEntity> bill = Optional.ofNullable(billRepository.findOne(request.getId()));
+		BillEntity billEntity = bill.orElseThrow(() -> new ResourceNotFound("Bill not found"));
+		billRepository.save(BillEntityBuilder.build(request, billEntity));
+		return new MessageResponse("Bill updated successfully!");
 	}
 	
 }
