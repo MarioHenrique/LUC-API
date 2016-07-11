@@ -8,6 +8,9 @@ import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Before;
@@ -19,8 +22,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 
-import br.com.lifeundercontroll.Dto.Response.UserResponse;
-import br.com.lifeundercontroll.Dto.request.UserRequest;
+import br.com.lifeundercontroll.dto.Response.BillResponse;
+import br.com.lifeundercontroll.dto.Response.UserResponse;
+import br.com.lifeundercontroll.dto.request.UserRequest;
+import br.com.lifeundercontroll.dto.request.UserUpdateRequest;
+import br.com.lifeundercontroll.entity.BillEntity;
 import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
@@ -46,7 +52,153 @@ public class UserServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
+
+	@Test
+	public void getUserByInvalidToken(){
+		
+		String token = "123-456";
+		
+		when(userRepository.findByToken(any(String.class))).thenReturn(null);
+		
+		try {
+			userService.getUserByToken(token);
+			assertTrue(false);
+		} catch (ResourceNotFound e) {
+			assertEquals("Usuario não encontrado",e.getMessage());
+			verify(userRepository,times(1)).findByToken(userKey.capture());
+			String tokenReturned = userKey.getValue();
+			assertEquals(token,tokenReturned);
+		}
+		
+	}
 	
+	@Test
+	public void getUserByValidToken() throws ResourceNotFound{
+		
+		String token = "123-456";
+		
+		UserEntity userEntity = new UserEntity();
+		userEntity.setEmail("email");
+		userEntity.setName("mario");
+		userEntity.setSalary(new BigDecimal("135.86"));
+		userEntity.setToken("123-456");
+		
+		when(userRepository.findByToken(any(String.class))).thenReturn(userEntity);
+		
+		UserResponse userResponse = userService.getUserByToken(token);
+
+		verify(userRepository,times(1)).findByToken(userKey.capture());
+		
+		String tokenReturned = userKey.getValue();
+		
+		assertEquals(token,tokenReturned);
+		assertEquals(userEntity.getEmail(),userResponse.getEmail());
+		assertEquals(userEntity.getName(),userResponse.getName());
+		assertEquals(userEntity.getSalary(),userResponse.getSalary());
+		assertEquals(userEntity.getToken(),userResponse.getToken());
+		
+	}
+	
+	@Test
+	public void updateUserWithValidUserToken() throws ResourceNotFound {
+
+		String token = "123-456";
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
+		userUpdateRequest.setNome("Mario");
+		userUpdateRequest.setSalario(new BigDecimal("134.60"));
+		userUpdateRequest.setToken(token);
+
+		when(userRepository.findByToken(any(String.class))).thenReturn(new UserEntity());
+
+		userService.updateUser(userUpdateRequest);
+
+		verify(userRepository, times(1)).findByToken(userKey.capture());
+		verify(userRepository, times(1)).save(userEntityCaptor.capture());
+
+		String tokenReturned = userKey.getValue();
+		UserEntity userEntity = userEntityCaptor.getValue();
+
+		assertEquals(token, tokenReturned);
+		assertEquals(userUpdateRequest.getNome(), userEntity.getName());
+		assertEquals(userUpdateRequest.getSalario(), userEntity.getSalary());
+
+	}
+
+	@Test
+	public void updateUserWithInvalidToken() {
+
+		String token = "123-456";
+
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest();
+		userUpdateRequest.setNome("Mario");
+		userUpdateRequest.setSalario(new BigDecimal("134.60"));
+		userUpdateRequest.setToken(token);
+
+		when(userRepository.findByToken(any(String.class))).thenReturn(null);
+		
+		try {
+			userService.updateUser(userUpdateRequest);
+			assertTrue(false);
+		} catch (ResourceNotFound e) {
+			assertEquals("Usuario não encontrado",e.getMessage());
+			verify(userRepository,times(1)).findByToken(userKey.capture());
+			String tokenReturned = userKey.getValue();
+			assertEquals(token,tokenReturned);
+			verify(userRepository,times(0)).save(any(UserEntity.class));
+		}
+
+	}
+
+	@Test
+	public void getBillWithInvalidUserToken() {
+
+		when(userRepository.findByToken(any(String.class))).thenReturn(null);
+
+		String userToken = "123-456";
+		try {
+			userService.getBills(userToken);
+			assertTrue(false);
+		} catch (ResourceNotFound e) {
+			verify(userRepository, times(1)).findByToken(userKey.capture());
+			String token = userKey.getValue();
+
+			assertEquals("Usuario não encontrado", e.getMessage());
+			assertEquals(userToken, token);
+		}
+
+	}
+
+	@Test
+	public void getBillsWithValidUserToken() throws ResourceNotFound {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
+		String userToken = "123-456";
+		UserEntity user = new UserEntity();
+		BillEntity bill = new BillEntity();
+		bill.setDueDate(new Date());
+		bill.setName("Conta de luz");
+		bill.setValue(new BigDecimal("200.50"));
+		user.setBills(new ArrayList<BillEntity>());
+		user.getBills().add(bill);
+
+		when(userRepository.findByToken(any(String.class))).thenReturn(user);
+
+		List<BillResponse> bills = userService.getBills(userToken);
+		BillResponse billResponse = bills.get(0);
+
+		assertEquals(bills.size(), 1);
+		assertEquals(sdf.format(bill.getDueDate()), billResponse.getDueDate());
+		assertEquals(bill.getName(), billResponse.getName());
+		assertEquals(bill.getValue(), billResponse.getValue());
+
+		verify(userRepository, times(1)).findByToken(userKey.capture());
+
+		String token = userKey.getValue();
+
+		assertEquals(userToken, token);
+
+	}
+
 	@Test
 	public void loginInvalid() {
 
@@ -60,10 +212,10 @@ public class UserServiceTest {
 			assertTrue(false);
 		} catch (ResourceNotFound e) {
 			assertEquals("Usuario ou senha incorreto", e.getMessage());
-			verify(userRepository,times(1)).findByEmailAndPassword(userKey.capture(),userKey.capture());
+			verify(userRepository, times(1)).findByEmailAndPassword(userKey.capture(), userKey.capture());
 			List<String> userAndPassword = userKey.getAllValues();
-			assertEquals(email,userAndPassword.get(0));
-			assertEquals(sha.encodePassword(password, null),userAndPassword.get(1));
+			assertEquals(email, userAndPassword.get(0));
+			assertEquals(sha.encodePassword(password, null), userAndPassword.get(1));
 		}
 
 	}

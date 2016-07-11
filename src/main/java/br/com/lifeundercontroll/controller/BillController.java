@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lifeundercontroll.Dto.Response.BillResponse;
-import br.com.lifeundercontroll.Dto.Response.MessageResponse;
-import br.com.lifeundercontroll.Dto.request.BillRequest;
-import br.com.lifeundercontroll.Dto.request.BillUpdateRequest;
+import br.com.lifeundercontroll.dto.request.BillRequest;
+import br.com.lifeundercontroll.dto.request.BillUpdateRequest;
+import br.com.lifeundercontroll.dto.response.BillResponse;
+import br.com.lifeundercontroll.dto.response.MessageResponse;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.security.Permissions;
 import br.com.lifeundercontroll.service.BillService;
@@ -45,7 +45,7 @@ public class BillController extends BaseController{
 		 billService.createBill(billRequest);
 	}
 	
-	@ApiOperation(value="Recupera dados de uma determinada conta")
+	@ApiOperation(value="Recupera dados de uma determinada conta")	
 	@RequestMapping(value="/{billId}",method=RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
 	@PreAuthorize(Permissions.GET_BILL)

@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.lifeundercontroll.Dto.Response.BillResponse;
-import br.com.lifeundercontroll.Dto.Response.MessageResponse;
-import br.com.lifeundercontroll.Dto.request.BillRequest;
-import br.com.lifeundercontroll.Dto.request.BillUpdateRequest;
+import br.com.lifeundercontroll.dto.request.BillRequest;
+import br.com.lifeundercontroll.dto.request.BillUpdateRequest;
+import br.com.lifeundercontroll.dto.response.BillResponse;
+import br.com.lifeundercontroll.dto.response.MessageResponse;
 import br.com.lifeundercontroll.builders.BillEntityBuilder;
 import br.com.lifeundercontroll.builders.BillResponseBuilder;
 import br.com.lifeundercontroll.entity.BillEntity;
@@ -16,7 +16,6 @@ import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.repository.BillRepository;
 import br.com.lifeundercontroll.repository.UserRepository;
-import br.com.lifeundercontroll.security.Permissions;
 
 @Service
 public class BillService {

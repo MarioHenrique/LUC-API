@@ -6,13 +6,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
-import br.com.lifeundercontroll.Dto.Response.BillResponse;
-import br.com.lifeundercontroll.Dto.Response.UserResponse;
-import br.com.lifeundercontroll.Dto.request.UserRequest;
-import br.com.lifeundercontroll.Dto.request.UserUpdateRequest;
+
 import br.com.lifeundercontroll.builders.BillResponseBuilder;
 import br.com.lifeundercontroll.builders.UserEntityBuilder;
 import br.com.lifeundercontroll.builders.UserResponseBuilder;
+import br.com.lifeundercontroll.dto.Response.BillResponse;
+import br.com.lifeundercontroll.dto.Response.UserResponse;
+import br.com.lifeundercontroll.dto.request.UserRequest;
+import br.com.lifeundercontroll.dto.request.UserUpdateRequest;
 import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;

@@ -20,8 +20,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.lifeundercontroll.Dto.Response.BillResponse;
-import br.com.lifeundercontroll.Dto.request.BillRequest;
+import br.com.lifeundercontroll.dto.Response.BillResponse;
+import br.com.lifeundercontroll.dto.request.BillRequest;
 import br.com.lifeundercontroll.entity.BillEntity;
 import br.com.lifeundercontroll.entity.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
@@ -106,7 +106,7 @@ public class BillServiceTest {
 	@Test
 	public void getBillWithSuccess() throws ResourceNotFound {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("DD/MM");
+		SimpleDateFormat sdf = new SimpleDateFormat("DD/MM/YYYY");
 		BillEntity billEntity = new BillEntity();
 		billEntity.setDueDate(new Date());
 		billEntity.setName("Mario");

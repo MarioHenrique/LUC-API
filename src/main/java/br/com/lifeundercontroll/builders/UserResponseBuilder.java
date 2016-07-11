@@ -1,6 +1,6 @@
 package br.com.lifeundercontroll.builders;
 
-import br.com.lifeundercontroll.Dto.Response.UserResponse;
+import br.com.lifeundercontroll.dto.Response.UserResponse;
 import br.com.lifeundercontroll.entity.UserEntity;
 
 public class UserResponseBuilder {
