@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.lifeundercontroll.config.RequestWrapper;
+import br.com.lifeundercontroll.config.security.RequestWrapper;
 
 @Component
 public class RequestWapperFilter extends OncePerRequestFilter{

@@ -1,4 +1,4 @@
-package br.com.lifeundercontroll;
+	package br.com.lifeundercontroll;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import br.com.lifeundercontroll.entity.LogEntity;
+import br.com.lifeundercontroll.entities.LogEntity;
 import br.com.lifeundercontroll.repository.LogRepository;
 
 @Component

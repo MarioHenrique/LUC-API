@@ -1,63 +1,57 @@
 package br.com.lifeundercontroll.service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.stereotype.Service;
-import br.com.lifeundercontroll.Dto.Response.BillResponse;
-import br.com.lifeundercontroll.Dto.Response.UserResponse;
-import br.com.lifeundercontroll.Dto.request.UserRequest;
-import br.com.lifeundercontroll.Dto.request.UserUpdateRequest;
-import br.com.lifeundercontroll.builders.BillResponseBuilder;
-import br.com.lifeundercontroll.builders.UserEntityBuilder;
-import br.com.lifeundercontroll.builders.UserResponseBuilder;
-import br.com.lifeundercontroll.entity.UserEntity;
+
+import br.com.lifeundercontroll.DTO.Response.UserResponseDTO;
+import br.com.lifeundercontroll.DTO.request.NewUserRequest;
+import br.com.lifeundercontroll.DTO.request.UserLoginRequest;
+import br.com.lifeundercontroll.DTO.request.UserUpdateRequest;
+import br.com.lifeundercontroll.builders.UserBuilder;
+import br.com.lifeundercontroll.entities.UserEntity;
 import br.com.lifeundercontroll.exceptions.ResourceAlreadyExist;
 import br.com.lifeundercontroll.exceptions.ResourceNotFound;
 import br.com.lifeundercontroll.repository.UserRepository;
+import br.com.lifeundercontroll.service.utils.Services;
 
 @Service
-public class UserService {
+public class UserService extends Services{
 
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 	
-	public void createUser(UserRequest userRequest) throws ResourceAlreadyExist{
+	
+	public UserResponseDTO create(NewUserRequest userRequest) throws ResourceAlreadyExist{
 	  Optional<UserEntity> user = Optional.ofNullable(userRepository.findByEmail(userRequest.getEmail()));
 	  if(user.isPresent()){
 		  throw new ResourceAlreadyExist("Email já cadastrado");
 	  }
-	  UserEntity userEntity = UserEntityBuilder.build(userRequest);	
+	  UserEntity userEntity = UserBuilder.newUserToEntity(userRequest);
+	  getUserAuthService().save(userEntity);
 	  userRepository.save(userEntity);
+	  return UserBuilder.entityToDTO(userEntity);
 	}
 
-	public UserResponse login(String email, String password) throws ResourceNotFound {
+	public OAuth2AccessToken login(UserLoginRequest userLogin) throws ResourceNotFound {
 		ShaPasswordEncoder shaPasswordEncoder = new ShaPasswordEncoder();
-		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByEmailAndPassword(email, shaPasswordEncoder.encodePassword(password,null)));
-		UserEntity userReturned = user.orElseThrow(()-> new ResourceNotFound("Usuario ou senha incorreto"));
-		return UserResponseBuilder.build(userReturned);
-	}
-
-	public List<BillResponse> getBills(String userToken) throws ResourceNotFound {
-		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(userToken));
-		UserEntity userEntity = user.orElseThrow(()->new ResourceNotFound("Usuario não encontrado"));
-		return userEntity.getBills().stream().map(s-> BillResponseBuilder.build(s)).collect(Collectors.toList());
-	}
-
-	public void updateUser(UserUpdateRequest userUpdateRequest) throws ResourceNotFound {
-		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(userUpdateRequest.getToken()));
-		UserEntity userEntity = user.orElseThrow(()-> new ResourceNotFound("Usuario não encontrado"));
-		userEntity.setName(userUpdateRequest.getNome());
-		userEntity.setSalary(userUpdateRequest.getSalario());
+		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByEmailAndPassword(userLogin.getEmail(), shaPasswordEncoder.encodePassword(userLogin.getPassword(),null)));
+		UserEntity userEntity = user.orElseThrow(()-> new ResourceNotFound("Usuario ou senha incorreto"));
+		OAuth2AccessToken tokenAcess = getUserAuthService().getToken(userLogin.getEmail(), userLogin.getPassword());
+		userEntity.setToken(tokenAcess.getValue());
 		userRepository.save(userEntity);
+		return tokenAcess;
 	}
 
-	public UserResponse getUserByToken(String token) throws ResourceNotFound {
-		Optional<UserEntity> user = Optional.ofNullable(userRepository.findByToken(token));
-		UserEntity userEntity = user.orElseThrow(()-> new ResourceNotFound("Usuario não encontrado"));
-		return UserResponseBuilder.build(userEntity);
+	public UserResponseDTO update(UserUpdateRequest userUpdate) {
+		UserEntity userLogged = getRequestService().getUserLogged();
+		userLogged.setName(userUpdate.getNome());
+		userLogged.setSalary(userUpdate.getSalario());
+		userRepository.save(userLogged);
+		return UserBuilder.entityToDTO(userLogged);
 	}
 	
 }
